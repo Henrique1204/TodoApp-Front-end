@@ -1,17 +1,19 @@
 import React from "react";
+// Importando componentes da interface.
+import Grid from "../template/Grid.jsx";
+import IconButton from "../template/IconButton.jsx";
+
 
 const TodoForm = () => {
     return (
         <div className="TodoForm row">
-            <div className="col-xs-12 col-sm-9 col-md-10">
+            <Grid cols="12 9 10">
                 <input type="text" className="form-control" placeholder="Adicione uma tarefa" />
-            </div>
+            </Grid>
 
-            <div className="col-xs-12 col-sm-3 col-md-2">
-                <button className="btn btn-primary">
-                    <i className="fa fa-plus"></i>
-                </button>
-            </div>
+            <Grid cols="12 3 2">
+                <IconButton styleBtn="primary" icon="plus" />
+            </Grid>
         </div>
     );
 };
