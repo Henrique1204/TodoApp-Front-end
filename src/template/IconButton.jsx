@@ -1,14 +1,13 @@
 import React from "react";
+import If from "../template/If.jsx";
 
 const IconButton = ({ hide, styleBtn, click, icon }) => {
-    if (hide) {
-        return null;
-    }
-
     return (
-        <button className={`btn btn-${styleBtn}`} onClick={click} >
-            <i className={`fa fa-${icon}`}></i>
-        </button>
+        <If test={!hide} >
+            <button className={`btn btn-${styleBtn}`} onClick={click} >
+                <i className={`fa fa-${icon}`}></i>
+            </button>
+        </If>
     );
 };
 
