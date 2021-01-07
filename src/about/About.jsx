@@ -1,9 +1,11 @@
 import React from "react";
+// Importando compoenentes da interface.
+import PageHeader from "../template/PageHeader.jsx";
 
 const About = () => {
     return (
         <div>
-            <h1>Sobre</h1>
+            <PageHeader name="Sobre" small="Nós" />
         </div>
     );
 };
