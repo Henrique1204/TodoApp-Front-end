@@ -5,10 +5,14 @@ import TodoForm from "./TodoForm.jsx";
 import TodoList from "./TodoList.jsx";
 
 const Todo = () => {
+    const handleAdd = () => {
+        console.log("Adicionou");
+    };
+
     return (
         <div>
             <PageHeader name="Tarefas" small="Cadastro" />
-            <TodoForm />
+            <TodoForm handleAdd={handleAdd} />
             <TodoList />
         </div>
     );

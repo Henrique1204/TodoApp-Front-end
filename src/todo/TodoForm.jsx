@@ -4,7 +4,7 @@ import Grid from "../template/Grid.jsx";
 import IconButton from "../template/IconButton.jsx";
 
 
-const TodoForm = () => {
+const TodoForm = ({ handleAdd }) => {
     return (
         <div className="TodoForm row">
             <Grid cols="12 9 10">
@@ -12,7 +12,7 @@ const TodoForm = () => {
             </Grid>
 
             <Grid cols="12 3 2">
-                <IconButton styleBtn="primary" icon="plus" />
+                <IconButton styleBtn="primary" icon="plus" click={handleAdd} />
             </Grid>
         </div>
     );
