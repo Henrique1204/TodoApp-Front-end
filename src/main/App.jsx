@@ -1,9 +1,13 @@
 import React from "react";
+// Importando componentes da interface.
+import Todo from "../todo/Todo.jsx";
+import About from "../about/About.jsx";
 
 const App = () => {
     return (
         <div className="container">
-            <h1>Teste</h1>
+            <Todo />
+            <About />
         </div>
     );
 };
