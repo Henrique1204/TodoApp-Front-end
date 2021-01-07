@@ -1,14 +1,18 @@
 import React from "react";
 // Importando componentes da interface.
-import Todo from "../todo/Todo.jsx";
-import About from "../about/About.jsx";
+import Routes from "./Routes.jsx";
+import Menu from "../template/Menu.jsx";
+// Importando componentes externos.
+import { BrowserRouter } from "react-router-dom";
 
 const App = () => {
     return (
-        <div className="container">
-            <Todo />
-            <About />
-        </div>
+        <BrowserRouter>
+            <div className="container">
+                <Menu />
+                <Routes />
+            </div>
+        </BrowserRouter>
     );
 };
 
