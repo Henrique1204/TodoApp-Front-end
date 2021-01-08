@@ -19,7 +19,7 @@ const Todo = () => {
             body: JSON.stringify({ description })
         });
 
-        if(res.status === 201) refresh();
+        if (res.status === 201) refresh();
     };
 
     const handleChange = ({ target }) => setDescription(target.value);
@@ -41,7 +41,7 @@ const Todo = () => {
             method: "delete"
         });
 
-        if(res.status === 204) refresh(description);
+        if (res.status === 204) refresh(description);
     };
 
     const handleMarkAsDone = async (id, desc) => {
@@ -53,7 +53,7 @@ const Todo = () => {
             body: JSON.stringify({ desc, done: true })
         });
 
-        if(res.status === 200) refresh(description);
+        if (res.status === 200) refresh(description);
     };
 
     const handleMarkAsPending = async (id, desc) => {
@@ -65,7 +65,7 @@ const Todo = () => {
             body: JSON.stringify({ desc, done: false })
         });
 
-        if(res.status === 200) refresh(description);
+        if (res.status === 200) refresh(description);
     };
 
     const handleSearch = () => refresh(description);
@@ -73,7 +73,7 @@ const Todo = () => {
     const handleClear = () => refresh();
 
     React.useEffect(() => {
-        if(!list) refresh();
+        if (!list) refresh();
     }, [list]);
 
     return (
@@ -86,6 +86,7 @@ const Todo = () => {
                 handleSearch={handleSearch}
                 handleClear={handleClear}
             />
+
             {list && (
                 <TodoList
                     list={list}

@@ -5,6 +5,14 @@ import IconButton from "../template/IconButton.jsx";
 
 
 const TodoForm = ({ description, handleChange, handleAdd, handleSearch, handleClear }) => {
+    const keyHandler = ({ key, shiftKey }) => {
+        if (key === "Enter") {
+            shiftKey ? handleSearch() : handleAdd();
+        } else if (key === "Escape") {
+            handleClear();
+        }
+    };
+
     return (
         <div className="TodoForm row mb-5">
             <Grid cols="12 9 10">
@@ -14,6 +22,7 @@ const TodoForm = ({ description, handleChange, handleAdd, handleSearch, handleCl
                     placeholder="Adicione uma tarefa"
                     value={description}
                     onChange={handleChange}
+                    onKeyUp={keyHandler}
                 />
             </Grid>
 
