@@ -1,4 +1,6 @@
 import React from "react";
+// Importando estilo.
+import "./App.css";
 // Importando componentes da interface.
 import Routes from "./Routes.jsx";
 import Menu from "../template/Menu.jsx";

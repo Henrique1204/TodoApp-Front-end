@@ -32,7 +32,7 @@ const Todo = () => {
             setDescription("");
             setList(json);
         }
-    }
+    };
 
     const handleRemove = async (id) => {
         const res = await fetch(`${URL}/${id}`, {
@@ -40,7 +40,31 @@ const Todo = () => {
         });
 
         if(res.status === 204) refresh();
-    }
+    };
+
+    const handleMarkAsDone = async (id, description) => {
+        const res = await fetch(`${URL}/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ description, done: true })
+        });
+
+        if(res.status === 200) refresh();
+    };
+
+    const handleMarkAsPending = async (id, description) => {
+        const res = await fetch(`${URL}/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ description, done: false })
+        });
+
+        if(res.status === 200) refresh();
+    } ;
 
     React.useEffect(() => {
         if(!list) refresh();
@@ -50,7 +74,14 @@ const Todo = () => {
         <div>
             <PageHeader name="Tarefas" small="Cadastro" />
             <TodoForm handleAdd={handleAdd} description={description} handleChange={handleChange} />
-            {list && <TodoList list={list} handleRemove={handleRemove} />}
+            {list && (
+                <TodoList
+                    list={list}
+                    handleRemove={handleRemove}
+                    handleMarkAsDone={handleMarkAsDone}
+                    handleMarkAsPending={handleMarkAsPending}
+                />
+            )}
         </div>
     );
 };
