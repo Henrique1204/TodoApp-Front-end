@@ -24,12 +24,14 @@ const Todo = () => {
 
     const handleChange = ({ target }) => setDescription(target.value);
 
-    const refresh = async () => {
-        const res = await fetch(`${URL}?sort=-createdAt`);
+    const refresh = async (description = "") => {
+        const search = description ? `&description__regex=/${description}/` : "";
+
+        const res = await fetch(`${URL}?sort=-createdAt${search}`);
         const json = await res.json();
 
         if (res.status === 200) {
-            setDescription("");
+            setDescription(description);
             setList(json);
         }
     };
@@ -39,7 +41,7 @@ const Todo = () => {
             method: "delete"
         });
 
-        if(res.status === 204) refresh();
+        if(res.status === 204) refresh(description);
     };
 
     const handleMarkAsDone = async (id, description) => {
@@ -51,7 +53,7 @@ const Todo = () => {
             body: JSON.stringify({ description, done: true })
         });
 
-        if(res.status === 200) refresh();
+        if(res.status === 200) refresh(description);
     };
 
     const handleMarkAsPending = async (id, description) => {
@@ -63,8 +65,12 @@ const Todo = () => {
             body: JSON.stringify({ description, done: false })
         });
 
-        if(res.status === 200) refresh();
-    } ;
+        if(res.status === 200) refresh(description);
+    };
+
+    const handleSearch = () => {
+        refresh(description);
+    };
 
     React.useEffect(() => {
         if(!list) refresh();
@@ -73,7 +79,12 @@ const Todo = () => {
     return (
         <div>
             <PageHeader name="Tarefas" small="Cadastro" />
-            <TodoForm handleAdd={handleAdd} description={description} handleChange={handleChange} />
+            <TodoForm 
+                description={description}
+                handleChange={handleChange}
+                handleAdd={handleAdd}
+                handleSearch={handleSearch}
+            />
             {list && (
                 <TodoList
                     list={list}
