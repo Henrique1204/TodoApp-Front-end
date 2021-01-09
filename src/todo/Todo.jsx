@@ -89,7 +89,6 @@ const Todo = () => {
 
             {list && (
                 <TodoList
-                    list={list}
                     handleRemove={handleRemove}
                     handleMarkAsDone={handleMarkAsDone}
                     handleMarkAsPending={handleMarkAsPending}

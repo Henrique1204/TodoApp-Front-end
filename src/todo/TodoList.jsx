@@ -1,5 +1,8 @@
 import React from "react";
+// Importando componentes da interface.
 import IconButton from "../template/IconButton";
+// Importando utilitários do Redux.
+import { connect } from "react-redux";
 
 const TodoList = ({ list, handleRemove, handleMarkAsDone, handleMarkAsPending }) => {
     const renderRows = () => {
@@ -32,4 +35,6 @@ const TodoList = ({ list, handleRemove, handleMarkAsDone, handleMarkAsPending })
     );
 };
 
-export default TodoList;
+const mapStateToProps = ({ todo }) => ({ list: todo.list });
+
+export default connect(mapStateToProps)(TodoList);
