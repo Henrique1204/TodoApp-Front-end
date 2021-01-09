@@ -5,7 +5,7 @@ import { configureStore, combineReducers, getDefaultMiddleware } from "@reduxjs/
 const middleware = [...getDefaultMiddleware()];
 // Combinando reducers para criar o reducer da aplicação.
 const reducer = combineReducers({
-    todo: {
+    todo: (state, action) => ({
         description: "Ler livro",
         list: [{
             _id: 1,
@@ -20,10 +20,10 @@ const reducer = combineReducers({
             description: "Consulta médica na terça depois do almoço.",
             done: false
         }]
-    }
+    })
 });
 
 // Criando a store passando o reducer e os middlewares.
-const store = configureStore(reducer, middleware);
+const store = configureStore({ reducer, middleware });
 
 export default store;
