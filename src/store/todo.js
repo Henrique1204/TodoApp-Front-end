@@ -31,4 +31,19 @@ export const fetchSearch = (payload = "") => async (dispatch) => {
     if (res.status === 200) dispatch(search(dados));
 };
 
+export const fetchAdd = (payload) => async (dispatch) => {
+    const res = await fetch(URL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ description: payload })
+    });
+
+    if (res.status === 201) {
+        dispatch(fetchSearch());
+        dispatch(changeDescription(""));
+    }
+};
+
 export default slice.reducer;

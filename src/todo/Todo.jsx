@@ -14,18 +14,6 @@ const Todo = () => {
     const { description } = useSelector((state) => state.todo);
     const dispatch = useDispatch();
 
-    const handleAdd = async () => {
-        const res = await fetch(URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ description })
-        });
-
-        if (res.status === 201) dispatch(fetchSearch());
-    };
-
     const handleRemove = async (id) => {
         const res = await fetch(`${URL}/${id}`, {
             method: "delete"
@@ -66,7 +54,6 @@ const Todo = () => {
         <div>
             <PageHeader name="Tarefas" small="Cadastro" />
             <TodoForm
-                handleAdd={handleAdd}
                 handleClear={handleClear}
             />
 

@@ -5,15 +5,15 @@ import IconButton from "../template/IconButton.jsx";
 // Importando utilitários do Redux.
 import { useDispatch, useSelector } from "react-redux";
 // Importando actions.
-import { changeDescription, fetchSearch } from "../store/todo.js";
+import { changeDescription, fetchSearch, fetchAdd } from "../store/todo.js";
 
-const TodoForm = ({ handleAdd, handleClear }) => {
+const TodoForm = ({ handleClear }) => {
     const { description } = useSelector((state) => state.todo);
     const dispatch = useDispatch();
 
     const keyHandler = ({ key, shiftKey }) => {
         if (key === "Enter") {
-            shiftKey ? dispatch(fetchSearch(description)) : handleAdd();
+            shiftKey ? dispatch(fetchSearch(description)) : dispatch(fetchAdd(description));
         } else if (key === "Escape") {
             handleClear();
         }
@@ -33,7 +33,7 @@ const TodoForm = ({ handleAdd, handleClear }) => {
             </Grid>
 
             <Grid cols="12 3 2">
-                <IconButton styleBtn="primary" icon="plus" click={handleAdd} />
+                <IconButton styleBtn="primary" icon="plus" click={() => dispatch(fetchAdd(description))} />
                 <IconButton styleBtn="info" icon="search" click={() => dispatch(fetchSearch(description))} />
                 <IconButton styleBtn="secondary" icon="close" click={handleClear} />
             </Grid>
