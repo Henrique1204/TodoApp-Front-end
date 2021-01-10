@@ -22,8 +22,6 @@ const Todo = () => {
         if (res.status === 201) refresh();
     };
 
-    const handleChange = ({ target }) => setDescription(target.value);
-
     const refresh = async (description = "") => {
         const search = description ? `&description__regex=/${description}/` : "";
 
@@ -80,7 +78,6 @@ const Todo = () => {
         <div>
             <PageHeader name="Tarefas" small="Cadastro" />
             <TodoForm
-                handleChange={handleChange}
                 handleAdd={handleAdd}
                 handleSearch={handleSearch}
                 handleClear={handleClear}

@@ -4,8 +4,10 @@ import Grid from "../template/Grid.jsx";
 import IconButton from "../template/IconButton.jsx";
 // Importando utilitários do Redux.
 import { connect } from "react-redux";
+// Importando actions.
+import { changeDescription } from "../store/todo.js";
 
-const TodoForm = ({ description, handleChange, handleAdd, handleSearch, handleClear }) => {
+const TodoForm = ({ description, changeDescriptionProps, handleAdd, handleSearch, handleClear }) => {
     const keyHandler = ({ key, shiftKey }) => {
         if (key === "Enter") {
             shiftKey ? handleSearch() : handleAdd();
@@ -22,7 +24,7 @@ const TodoForm = ({ description, handleChange, handleAdd, handleSearch, handleCl
                     className="form-control"
                     placeholder="Adicione uma tarefa"
                     value={description}
-                    onChange={handleChange}
+                    onChange={({ target }) => changeDescriptionProps(target.value)}
                     onKeyUp={keyHandler}
                 />
             </Grid>
@@ -36,6 +38,13 @@ const TodoForm = ({ description, handleChange, handleAdd, handleSearch, handleCl
     );
 };
 
+// Mapeando os valores do state global e passando como propriedade pro componente.
 const mapStateToProps = ({ todo }) => ({ description: todo.description });
+// Mepeando os dispatch e passando como propriedade pro componente.
+const mapDispatchToProps = (dispatch) => ({
+    changeDescriptionProps(payload) {
+        dispatch(changeDescription(payload));
+    }
+});
 
-export default connect(mapStateToProps)(TodoForm);
+export default connect(mapStateToProps, mapDispatchToProps)(TodoForm);

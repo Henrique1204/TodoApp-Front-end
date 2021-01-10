@@ -35,6 +35,7 @@ const TodoList = ({ list, handleRemove, handleMarkAsDone, handleMarkAsPending })
     );
 };
 
+// Mapeando os valores do state global e passando como propriedade pro componente.
 const mapStateToProps = ({ todo }) => ({ list: todo.list });
 
 export default connect(mapStateToProps)(TodoList);
