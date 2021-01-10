@@ -1,27 +1,34 @@
-const CHANGE_DESCRIPTION = "todo/changeDescription";
+// Importando utilitários do Redux.
+import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-    description: "Ler livro",
-    list: [{
-        _id: 1,
-        description: "Pagar fatura do cartão.",
-        done: true
-    }, {
-        _id: 2,
-        description: "Reunião com a equipe às 10:00h",
-        done: false
-    }, {
-        _id: 3,
-        description: "Consulta médica na terça depois do almoço.",
-        done: false
-    }]
+const URL = "http://localhost:3003/api/todo";
+
+// Criando slice.
+const slice = createSlice({
+    name: "todo",
+    initialState: {
+        description: "",
+        list: null
+    },
+    reducers: {
+        changeDescription(state, action) {
+            state.description = action.payload;
+        },
+        search(state, action) {
+            state.list = action.payload;
+        }
+    }
+});
+
+export const { search, changeDescription } = slice.actions;
+
+export const fetchSearch = (payload = "") => async (dispatch) => {
+    const query = payload ? `&description__regex=/${payload}/` : "";
+
+    const res = await fetch(`${URL}?sort=-createdAt${query}`);
+    const dados = await res.json();
+
+    if (res.status === 200) dispatch(search(dados));
 };
 
-export const changeDescription = (payload) => ({ type: CHANGE_DESCRIPTION, payload }); 
-
-export default function todo(state = initialState, action) {
-    switch (action.type) {
-        case CHANGE_DESCRIPTION: return { ...state, description: action.payload };
-        default: return state;
-    }
-}
+export default slice.reducer;

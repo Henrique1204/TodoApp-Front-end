@@ -20,6 +20,8 @@ const TodoList = ({ list, handleRemove, handleMarkAsDone, handleMarkAsPending })
         ));
     };
 
+    if (!list) return null;
+
     return (
         <table className="table">
             <thead>
