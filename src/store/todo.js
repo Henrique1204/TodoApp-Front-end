@@ -46,4 +46,28 @@ export const fetchAdd = (payload) => async (dispatch) => {
     }
 };
 
+export const markAsDone = ({ todo, description }) => async (dispatch) => {
+    const res = await fetch(`${URL}/${todo._id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ description: todo.description, done: true })
+    });
+
+    if (res.status === 200) dispatch(fetchSearch(description));
+}
+
+export const markAsPending = ({ todo, description }) => async (dispatch) => {
+    const res = await fetch(`${URL}/${todo._id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ description: todo.description, done: false })
+    });
+
+    if (res.status === 200) dispatch(fetchSearch(description));
+}
+
 export default slice.reducer;

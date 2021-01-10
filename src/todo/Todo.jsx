@@ -22,30 +22,6 @@ const Todo = () => {
         if (res.status === 204) dispatch(fetchSearch(description));
     };
 
-    const handleMarkAsDone = async (id, desc) => {
-        const res = await fetch(`${URL}/${id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ desc, done: true })
-        });
-
-        if (res.status === 200) dispatch(fetchSearch(description));
-    };
-
-    const handleMarkAsPending = async (id, desc) => {
-        const res = await fetch(`${URL}/${id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ desc, done: false })
-        });
-
-        if (res.status === 200) dispatch(fetchSearch(description));
-    };
-
     const handleClear = () => dispatch(fetchSearch());
 
     React.useEffect(() => dispatch(fetchSearch()), [dispatch]);
@@ -59,8 +35,6 @@ const Todo = () => {
 
             <TodoList
                 handleRemove={handleRemove}
-                handleMarkAsDone={handleMarkAsDone}
-                handleMarkAsPending={handleMarkAsPending}
             />
         </div>
     );

@@ -2,19 +2,35 @@ import React from "react";
 // Importando componentes da interface.
 import IconButton from "../template/IconButton";
 // Importando utilitários do Redux.
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { markAsDone, markAsPending } from "../store/todo";
 
-const TodoList = ({ list, handleRemove, handleMarkAsDone, handleMarkAsPending }) => {
+const TodoList = ({ handleRemove }) => {
+    const { list, description } = useSelector((state) => state.todo);
+    const dispatch = useDispatch();
+
     const renderRows = () => {
         const data = list || [];
-        return data.map(({ _id, description, done }) => (
-            <tr key={_id} >
-                <td className={(done) ? "markedIsDone" : ""} >{description}</td>
+        return data.map((todo) => (
+            <tr key={todo._id} >
+                <td className={(todo.done) ? "markedIsDone" : ""} >{todo.description}</td>
     
                 <td>
-                    <IconButton styleBtn="success" icon="check" hide={done} click={() => handleMarkAsDone(_id, description)} />
-                    <IconButton styleBtn="warning" icon="undo" hide={!done} click={() => handleMarkAsPending(_id, description)} />
-                    <IconButton styleBtn="danger" icon="trash-o" hide={!done} click={() => handleRemove(_id)} />
+                    <IconButton
+                        styleBtn="success"
+                        icon="check"
+                        hide={todo.done}
+                        click={() => dispatch(markAsDone({ todo, description }))}
+                    />
+
+                    <IconButton
+                        styleBtn="warning"
+                        icon="undo"
+                        hide={!todo.done}
+                        click={() => dispatch(markAsPending({ todo, description }))}
+                    />
+
+                    <IconButton styleBtn="danger" icon="trash-o" hide={!todo.done} click={() => handleRemove(todo)} />
                 </td>
             </tr>
         ));
@@ -37,7 +53,4 @@ const TodoList = ({ list, handleRemove, handleMarkAsDone, handleMarkAsPending })
     );
 };
 
-// Mapeando os valores do state global e passando como propriedade pro componente.
-const mapStateToProps = ({ todo }) => ({ list: todo.list });
-
-export default connect(mapStateToProps)(TodoList);
+export default TodoList;
