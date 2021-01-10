@@ -2,7 +2,8 @@ import React from "react";
 // Importando componentes da interface.
 import Grid from "../template/Grid.jsx";
 import IconButton from "../template/IconButton.jsx";
-
+// Importando utilitários do Redux.
+import { connect } from "react-redux";
 
 const TodoForm = ({ description, handleChange, handleAdd, handleSearch, handleClear }) => {
     const keyHandler = ({ key, shiftKey }) => {
@@ -35,4 +36,6 @@ const TodoForm = ({ description, handleChange, handleAdd, handleSearch, handleCl
     );
 };
 
-export default TodoForm;
+const mapStateToProps = ({ todo }) => ({ description: todo.description });
+
+export default connect(mapStateToProps)(TodoForm);

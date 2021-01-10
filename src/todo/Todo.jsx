@@ -79,8 +79,7 @@ const Todo = () => {
     return (
         <div>
             <PageHeader name="Tarefas" small="Cadastro" />
-            <TodoForm 
-                description={description}
+            <TodoForm
                 handleChange={handleChange}
                 handleAdd={handleAdd}
                 handleSearch={handleSearch}
