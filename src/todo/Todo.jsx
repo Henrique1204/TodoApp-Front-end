@@ -11,17 +11,12 @@ import { fetchSearch } from "../store/todo.js";
 const Todo = () => {
     const dispatch = useDispatch();
 
-    const handleClear = () => dispatch(fetchSearch());
-
     React.useEffect(() => dispatch(fetchSearch()), [dispatch]);
 
     return (
         <div>
             <PageHeader name="Tarefas" small="Cadastro" />
-            <TodoForm
-                handleClear={handleClear}
-            />
-
+            <TodoForm />
             <TodoList />
         </div>
     );

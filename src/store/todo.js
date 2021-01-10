@@ -16,11 +16,14 @@ const slice = createSlice({
         },
         search(state, action) {
             state.list = action.payload;
+        },
+        clear(state) {
+            state.description = "";
         }
     }
 });
 
-export const { search, changeDescription } = slice.actions;
+export const { changeDescription, search, clear } = slice.actions;
 
 export const fetchSearch = (payload = "") => async (dispatch) => {
     const query = payload ? `&description__regex=/${payload}/` : "";
@@ -29,21 +32,6 @@ export const fetchSearch = (payload = "") => async (dispatch) => {
     const dados = await res.json();
 
     if (res.status === 200) dispatch(search(dados));
-};
-
-export const fetchAdd = (payload) => async (dispatch) => {
-    const res = await fetch(URL, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ description: payload })
-    });
-
-    if (res.status === 201) {
-        dispatch(fetchSearch());
-        dispatch(changeDescription(""));
-    }
 };
 
 export const markAsDone = ({ todo, description }) => async (dispatch) => {
@@ -76,6 +64,23 @@ export const fetchRemove = ({ todo, description }) => async (dispatch) => {
     });
 
     if (res.status === 204) dispatch(fetchSearch(description));
+};
+
+export const clearSearch = () => async (dispatch) => {
+    dispatch(clear());
+    dispatch(fetchSearch());
+};
+
+export const fetchAdd = (payload) => async (dispatch) => {
+    const res = await fetch(URL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ description: payload })
+    });
+
+    if (res.status === 201) dispatch(clearSearch());
 };
 
 export default slice.reducer;
