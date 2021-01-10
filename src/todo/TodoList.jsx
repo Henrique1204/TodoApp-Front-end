@@ -3,9 +3,9 @@ import React from "react";
 import IconButton from "../template/IconButton";
 // Importando utilitários do Redux.
 import { useDispatch, useSelector } from "react-redux";
-import { markAsDone, markAsPending } from "../store/todo";
+import { fetchRemove, markAsDone, markAsPending } from "../store/todo";
 
-const TodoList = ({ handleRemove }) => {
+const TodoList = () => {
     const { list, description } = useSelector((state) => state.todo);
     const dispatch = useDispatch();
 
@@ -30,7 +30,12 @@ const TodoList = ({ handleRemove }) => {
                         click={() => dispatch(markAsPending({ todo, description }))}
                     />
 
-                    <IconButton styleBtn="danger" icon="trash-o" hide={!todo.done} click={() => handleRemove(todo)} />
+                    <IconButton
+                        styleBtn="danger"
+                        icon="trash-o"
+                        hide={!todo.done}
+                        click={() => dispatch(fetchRemove({ todo, description }))}
+                    />
                 </td>
             </tr>
         ));

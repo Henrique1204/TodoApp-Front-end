@@ -56,7 +56,7 @@ export const markAsDone = ({ todo, description }) => async (dispatch) => {
     });
 
     if (res.status === 200) dispatch(fetchSearch(description));
-}
+};
 
 export const markAsPending = ({ todo, description }) => async (dispatch) => {
     const res = await fetch(`${URL}/${todo._id}`, {
@@ -68,6 +68,14 @@ export const markAsPending = ({ todo, description }) => async (dispatch) => {
     });
 
     if (res.status === 200) dispatch(fetchSearch(description));
-}
+};
+
+export const fetchRemove = ({ todo, description }) => async (dispatch) => {
+    const res = await fetch(`${URL}/${todo._id}`, {
+        method: "delete"
+    });
+
+    if (res.status === 204) dispatch(fetchSearch(description));
+};
 
 export default slice.reducer;
